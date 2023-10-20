@@ -1,47 +1,41 @@
 rows = []
 M = int(10000000000)
-# A_num = int(input("How many artificial variables?"))
-# EQ_num = int(input("How many equations?:"))
-# Var_num = int(input("How many variables?:"))
-# A_rows = []
-
-# for a in range (0,EQ_num+1):
-#     appendable = []
-#     print("row ",a )
-
-#     for b in range (0,Var_num+1):
-#         x = int(input(":"))
-#         appendable.append(x)
-#     rows.append(appendable)
-
-# for c in range (0,EQ_num):
-#     for d in range (0,EQ_num-1):
-#         rows[c].insert(-1,0)
-
-# for e in range (0,EQ_num):
-#     rows[e].insert(Var_num+e,1)
-
-# for f in range (0,EQ_num):
-#     rows[-1].insert(-1,0)
-
-# for g in range(0,EQ_num):
-#     for h in range(0,A_num-1):
-#         rows[g][h].insert(-1,0)
-
-# for l in range(0,A_num):
-#     tvar = int(input("Artificial variable rows"))
-#     A_rows.append(tvar)
-
-# for num in A_rows:
-#     for a in range(0,len(A_rows)):
-#         rows[num].insert(-2+a,1)
-
-
-A_num = 2
-EQ_num = 3
-Var_num = 3
-rows = [[1,1,2,1,0,0,0,0,10],[2,-3,1,0,-1,0,1,0,5],[1,1,0,0,0,-1,0,1,8],[-3-3*M,2+2*M,-1-M,0,-M,-M,0,0,-13*M]]
+A_num = int(input("How many artificial variables?"))
+EQ_num = int(input("How many equations?:"))
+Var_num = int(input("How many variables?:"))
+A_rows = []
 kc =2*Var_num+A_num+1
+
+for a in range (0,EQ_num+1):
+    appendable = []
+    print("row ",a )
+
+    for b in range (0,Var_num+1):
+        x = int(input(":"))
+        appendable.append(x)
+    rows.append(appendable)
+
+for c in range (0,EQ_num):
+    for d in range (0,EQ_num-1):
+        rows[c].insert(-1,0)
+
+for e in range (0,EQ_num):
+    rows[e].insert(Var_num+e,1)
+
+for f in range (0,EQ_num):
+    rows[-1].insert(-1,0)
+
+for g in range(0,EQ_num):
+    for h in range(0,A_num-1):
+        rows[g][h].insert(-1,0)
+
+for l in range(0,A_num):
+    tvar = int(input("Artificial variable rows:"))
+    A_rows.append(tvar)
+
+for num in A_rows:
+    for a in range(0,len(A_rows)):
+        rows[num].insert(-2+a,1)
 
 not_solved = True
 
