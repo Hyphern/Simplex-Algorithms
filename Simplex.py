@@ -2,12 +2,15 @@ tableau = []
 EQ_num = int(input("How many equations?:"))
 Var_num = int(input("How many variables?:"))
 
+basic_variables = ["x" + str(i+1) for i in range(Var_num)]
+slack_variables = ["s" + str(i+1) for i in range(EQ_num)]
+
 for a in range (0,EQ_num+1):
     appendable = []
     print("row ",a )
 
     for b in range (0,Var_num+1):
-        x = int(input(":"))
+        x = int(input(":"))óó
         appendable.append(x)
     tableau.append(appendable)
 
@@ -20,6 +23,9 @@ for e in range (0,EQ_num):
 
 for f in range (0,EQ_num):
     tableau[-1].insert(-1,0)
+
+def change_basic_variable(initial_index,new_index):
+    basic_variables[initial_index], basic_variables[new_index] = basic_variables[new_index], basic_variables[initial_index]
 
 unsolved = True
 
@@ -66,3 +72,5 @@ while unsolved:
             test = len(tableau[-1])
             for j in range (0,len(tableau[-1])):                    
                 tableau[i][j] -= (pivot_multiple1 * EQCRO[j])
+
+# Add a tracker for the basic variables to find out which variables are basic at the end of the program
