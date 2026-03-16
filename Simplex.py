@@ -5,24 +5,30 @@ Var_num = int(input("How many variables?:"))
 basic_variables = ["x" + str(i+1) for i in range(Var_num)]
 slack_variables = ["s" + str(i+1) for i in range(EQ_num)]
 
-for a in range (0,EQ_num+1):
-    appendable = []
-    print("row ",a )
+# for a in range (0,EQ_num+1):
+#     appendable = []
+#     print("row ",a )
 
-    for b in range (0,Var_num+1):
-        x = int(input(":"))óó
-        appendable.append(x)
-    tableau.append(appendable)
+#     for b in range (0,Var_num+1):
+#         x = int(input(":"))
+#         appendable.append(x)
+#     tableau.append(appendable)
 
-for c in range (0,EQ_num):
-    for d in range (0,EQ_num-1):
-        tableau[c].insert(-1,0)
+# for c in range (0,EQ_num):
+#     for d in range (0,EQ_num-1):
+#         tableau[c].insert(-1,0)
 
-for e in range (0,EQ_num):
-    tableau[e].insert(Var_num+e,1)
+# for e in range (0,EQ_num):
+#     tableau[e].insert(Var_num+e,1)
 
-for f in range (0,EQ_num):
-    tableau[-1].insert(-1,0)
+# for f in range (0,EQ_num):
+#     tableau[-1].insert(-1,0)
+
+tableau = [[-2,0,1,1,0,0,0,3],
+           [3,0,-2,0,1,2,0,6],
+           [1,1,-3,0,0,1,0,2],
+           [-3,0,2,0,0,-1,1,4],
+           [2,0,-11,0,0,-4,0,8]]
 
 def change_basic_variable(initial_index,new_index):
     basic_variables[initial_index], basic_variables[new_index] = basic_variables[new_index], basic_variables[initial_index]
