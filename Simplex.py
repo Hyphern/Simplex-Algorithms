@@ -1,82 +1,92 @@
-tableau = []
-EQ_num = int(input("How many equations?:"))
-Var_num = int(input("How many variables?:"))
+def create_tableau(eq_num, var_num):
+    tableau = []
+    for a in range (0,eq_num+1):
+        appendable = []
+        print("row ",a )
 
-basic_variables = ["x" + str(i+1) for i in range(Var_num)]
-slack_variables = ["s" + str(i+1) for i in range(EQ_num)]
+        for _ in range (0,var_num+1):
+            x = int(input(":"))
+            appendable.append(x)
+        tableau.append(appendable)
 
-# for a in range (0,EQ_num+1):
-#     appendable = []
-#     print("row ",a )
+    for c in range (0,eq_num):
+        for _ in range (0,eq_num-1):
+            tableau[c].insert(-1,0)
 
-#     for b in range (0,Var_num+1):
-#         x = int(input(":"))
-#         appendable.append(x)
-#     tableau.append(appendable)
+    for e in range (0,eq_num):
+        tableau[e].insert(var_num+e,1)
 
-# for c in range (0,EQ_num):
-#     for d in range (0,EQ_num-1):
-#         tableau[c].insert(-1,0)
+    for _ in range (0,eq_num):
+        tableau[-1].insert(-1,0)
+    
 
-# for e in range (0,EQ_num):
-#     tableau[e].insert(Var_num+e,1)
+    global basic_variables, slack_variables
+    basic_variables = ["x" + str(i+1) for i in range(var_num)]
+    slack_variables = ["s" + str(i+1) for i in range(eq_num)]
 
-# for f in range (0,EQ_num):
-#     tableau[-1].insert(-1,0)
+    return tableau
 
-tableau = [[-2,0,1,1,0,0,0,3],
-           [3,0,-2,0,1,2,0,6],
-           [1,1,-3,0,0,1,0,2],
-           [-3,0,2,0,0,-1,1,4],
-           [2,0,-11,0,0,-4,0,8]]
 
 def change_basic_variable(initial_index,new_index):
     basic_variables[initial_index], basic_variables[new_index] = basic_variables[new_index], basic_variables[initial_index]
 
-unsolved = True
+def solve(tableau):
 
-while unsolved:
+    EQ_num = len(tableau) - 1
+    unsolved = True
 
-    for k in range(0,EQ_num+1):
-        print(tableau[k])
-    print("")
+    while unsolved:
 
-    most_negative = min(filter(lambda x: x < 0, tableau[-1]), default=0)
+        for k in range(0,EQ_num+1):
+            print(tableau[k])
+        print("")
 
-    if most_negative >= 0:
-        unsolved = False
-        print("Solved!")
-    pivot_column = tableau[-1].index(most_negative)
-    theta_values = []
+        most_negative = min(filter(lambda x: x < 0, tableau[-1]), default=0)
 
-    for h in range(0,EQ_num):
+        if most_negative >= 0:
+            unsolved = False
+            print("Solved!")
+        pivot_column = tableau[-1].index(most_negative)
+        theta_values = []
 
-        if tableau[h][pivot_column] ==0:
-            theta_values.append(100000)
-        else:
-            theta_values.append(tableau[h][-1]/tableau[h][pivot_column])
-    theta_value = min([i for i in theta_values if i > 0])
+        for h in range(0,EQ_num):
 
-    pivot_row = theta_values.index(theta_value)
-    EQC = tableau[pivot_row]
-    pivot = EQC[pivot_column]
-    EQCRO = []
+            if tableau[h][pivot_column] ==0:
+                theta_values.append(100000)
+            else:
+                theta_values.append(tableau[h][-1]/tableau[h][pivot_column])
+        theta_value = min([i for i in theta_values if i > 0])
 
-    for q in range(0,len(tableau[-1])):
-        if EQC[q] == 0:
-            EQCRO.append(EQC[q])
-        else:
-            EQCRO.append(EQC[q] / pivot)
-            
-    tableau[pivot_row] = EQCRO
+        pivot_row = theta_values.index(theta_value)
+        EQC = tableau[pivot_row]
+        pivot = EQC[pivot_column]
+        EQCRO = []
 
-    for i in range (0,len(tableau)):
-        if i == pivot_row:
-            continue
-        else:     
-            pivot_multiple1 = tableau[i][pivot_column] / EQCRO[pivot_column] 
-            test = len(tableau[-1])
-            for j in range (0,len(tableau[-1])):                    
-                tableau[i][j] -= (pivot_multiple1 * EQCRO[j])
+        for q in range(0,len(tableau[-1])):
+            if EQC[q] == 0:
+                EQCRO.append(EQC[q])
+            else:
+                EQCRO.append(EQC[q] / pivot)
+                
+        tableau[pivot_row] = EQCRO
 
-# Add a tracker for the basic variables to find out which variables are basic at the end of the program
+        for i in range (0,len(tableau)):
+            if i == pivot_row:
+                continue
+            else:     
+                pivot_multiple1 = tableau[i][pivot_column] / EQCRO[pivot_column] 
+                test = len(tableau[-1])
+                for j in range (0,len(tableau[-1])):                    
+                    tableau[i][j] -= (pivot_multiple1 * EQCRO[j])
+
+def print_solution(tableau):
+    Eq_num = len(tableau) - 1
+    for i in range(0,Eq_num):
+        print(basic_variables[i], "=", tableau[i][-1])
+
+if __name__ == "__main__":
+    eq_num = int(input("Enter the number of equations: "))
+    var_num = int(input("Enter the number of variables: "))
+    tableau = create_tableau(eq_num, var_num)
+    solve(tableau)
+    print_solution(tableau)
